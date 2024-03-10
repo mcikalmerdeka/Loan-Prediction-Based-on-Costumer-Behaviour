@@ -1,6 +1,6 @@
 ﻿# Loan Prediction Based on Customer Behavior
 
-**This is the repository for the final project of the Rakamin Data Science Bootcamp. The progress of each stage can be seen in the "Original Indonesian Version" folder, while what is displayed here is the result of the conversion from Indonesian to English, accompanied by further improvements made after the completion of the final project.**
+**This is the repository for the final project of the Rakamin Data Science Bootcamp Batch 39 that I attended. The original progress and result of each stage can be seen in the "Original Indonesian Version" folder, while what is displayed here is the result of the conversion from Indonesian to English, accompanied by further improvements made after the completion of the final project.**
 
 # Dackers
 
