@@ -1,5 +1,7 @@
 ﻿# Loan Prediction Based on Customer Behavior
 
+**This is the repository for the final project of the Rakamin Data Science Bootcamp. The progress of each stage can be seen in the "Original Indonesian Version" folder, while what is displayed here is the result of the conversion from Indonesian to English, accompanied by further improvements made after the completion of the final project.**
+
 # Dackers
 
 1. Muhammad Cikal Merdeka
@@ -27,5 +29,3 @@ Sasaran akhir dari proyek ini adalah menciptakan model machine learning yang dap
 
 ## Business Metrics
 * Default rate (%) : Persentase jumlah calon nasabah yang gagal membayar pinjaman (default) dibagi dengan jumlah total nasabah. Upaya menurunkan tingkat default rate dapat mengurangi persentase pelanggan yang gagal membayar pinjaman
-
-* Secondary Metric (opsional) : Profit perusahaan
