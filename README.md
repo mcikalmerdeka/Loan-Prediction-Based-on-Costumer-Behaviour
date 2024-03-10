@@ -1,10 +1,10 @@
 ﻿# Loan Prediction Based on Customer Behavior
 
-**This is the repository for the final project of the Rakamin Data Science Bootcamp Batch 39 that I attended. The original progress and result of each stage can be seen in the "Original Indonesian Version" folder, while what is displayed here is the result of the conversion from Indonesian to English, accompanied by further improvements made after the completion of the final project.**
+**This is the repository for the final project of the Rakamin Data Science Bootcamp Batch 39 that I attended. We are required to go through the end-to-end process of a data science project analyzing factors influencing the default (failure to pay) of a lending company. The original progress and result of each stage can be seen in the "Original Indonesian Version" folder, while what is displayed here is the result of the conversion from Indonesian to English, accompanied by further improvements made after the completion of the final project.**
 
-# Dackers
+# Members of Group 3 (**Dackers**)
 
-1. Muhammad Cikal Merdeka
+1. Muhammad Cikal Merdeka (Leader)
 2. Maulana Rifan Haditama
 3. Maulana Ibrahim
 4. Maria Meidiana Siahaan
