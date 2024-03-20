@@ -43,11 +43,11 @@ def run_ml_app() :
         income = st.number_input('Income', 10310, 9999938)
         age = st.number_input('Age', 21, 79)
         experience = st.number_input('Experience', 0, 20)
-        marital_status = st.selectbox('Marital Status', ['single' 'married'])
-        house_ownership = st.selectbox('House Ownership', ['rented' 'norent_noown' 'owned'])
+        marital_status = st.selectbox('Marital Status', [['single' 'married']])
+        house_ownership = st.selectbox('House Ownership', [['rented' 'norent_noown' 'owned']])
         car_ownership = st.selectbox('Car Ownership', ['no' 'yes'])
 
-        profession = st.selectbox('Profession', ['Mechanical_engineer' 'Software_Developer' 'Technical_writer'
+        profession = st.selectbox('Profession', [['Mechanical_engineer' 'Software_Developer' 'Technical_writer'
                                 'Civil_servant' 'Librarian' 'Economist' 'Flight_attendant' 'Architect'
                                 'Designer' 'Physician' 'Financial_Analyst' 'Air_traffic_controller'
                                 'Politician' 'Police_officer' 'Artist' 'Surveyor' 'Design_Engineer'
@@ -58,9 +58,9 @@ def run_ml_app() :
                                 'Aviator' 'Psychologist' 'Magistrate' 'Lawyer' 'Firefighter' 'Engineer'
                                 'Official' 'Analyst' 'Geologist' 'Drafter' 'Statistician' 'Web_designer'
                                 'Consultant' 'Chef' 'Army_officer' 'Surgeon' 'Scientist' 'Civil_engineer'
-                                'Industrial_Engineer' 'Technology_specialist'])
+                                'Industrial_Engineer' 'Technology_specialist']])
         
-        city = st.selectbox('City', ['Rewa' 'Parbhani' 'Alappuzha' 'Bhubaneswar' 'Tiruchirappalli[10]'
+        city = st.selectbox('City', [['Rewa' 'Parbhani' 'Alappuzha' 'Bhubaneswar' 'Tiruchirappalli[10]'
                                 'Jalgaon' 'Tiruppur' 'Jamnagar' 'Kota[6]' 'Karimnagar' 'Hajipur[31]'
                                 'Adoni' 'Erode[17]' 'Kollam' 'Madurai' 'Anantapuram[24]' 'Kamarhati'
                                 'Bhusawal' 'Sirsa' 'Amaravati' 'Secunderabad' 'Ahmedabad' 'Ajmer'
@@ -113,13 +113,13 @@ def run_ml_app() :
                                 'Ahmednagar' 'Fatehpur' 'Bhilwara' 'Kharagpur' 'Bettiah[33]' 'Bhind'
                                 'Bokaro' 'Karaikudi' 'Raebareli' 'Pudukkottai' 'Udaipur'
                                 'Mysore[7][8][9]' 'Panipat' 'Latur' 'Tadipatri' 'Bahraich' 'Orai'
-                                'Raurkela_Industrial_Township' 'Gwalior' 'Katni' 'Chandrapur' 'Kolhapur'])
+                                'Raurkela_Industrial_Township' 'Gwalior' 'Katni' 'Chandrapur' 'Kolhapur']])
         
-        state = st.selectbox('State', ['Madhya_Pradesh' 'Maharashtra' 'Kerala' 'Odisha' 'Tamil_Nadu' 'Gujarat'
+        state = st.selectbox('State', [['Madhya_Pradesh' 'Maharashtra' 'Kerala' 'Odisha' 'Tamil_Nadu' 'Gujarat'
                                 'Rajasthan' 'Telangana' 'Bihar' 'Andhra_Pradesh' 'West_Bengal' 'Haryana'
                                 'Puducherry' 'Karnataka' 'Uttar_Pradesh' 'Himachal_Pradesh' 'Punjab'
                                 'Tripura' 'Uttarakhand' 'Jharkhand' 'Mizoram' 'Assam' 'Jammu_and_Kashmir'
-                                'Delhi' 'Chhattisgarh' 'Chandigarh' 'Uttar_Pradesh[5]' 'Manipur' 'Sikkim'])
+                                'Delhi' 'Chhattisgarh' 'Chandigarh' 'Uttar_Pradesh[5]' 'Manipur' 'Sikkim']])
         
         current_job_years = st.number_input('Current Job Years', 0, 14)
         current_house_years = st.number_input('Current House Years', 10, 14)
@@ -144,7 +144,7 @@ def run_ml_app() :
             }
             #st.write(result)
 
-        df_model = pd.read_csv(os.path.join('df_model')) #edit and export the df_model from training file
+        df_model = pd.read_csv(os.path.join('df_model.csv'))
         df_prediction = result
         df_prediction = pd.DataFrame(df_prediction, index=[0])
         st.write('Your Selected Options')
