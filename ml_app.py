@@ -26,11 +26,11 @@ attribute_info = """
 
 def load_model(model_file):
     # Using Joblib
-    loaded_model = joblib.load(open(model_file, 'rb'))
+    # loaded_model = joblib.load(open(model_file, 'rb'))
 
-    # # Using Pickle
-    # with open(model_file, 'rb') as file:
-    #     loaded_model = pickle.load(file)
+    # Using Pickle
+    with open(model_file, 'rb') as file:
+        loaded_model = pickle.load(file)
     return loaded_model
 
 # Version 1
@@ -187,7 +187,6 @@ def run_ml_app() :
         df_prediction['City'] = df_prediction['City'].replace('delhi city', 'new delhi')
 
         # Encoding Data
-
         cats_few = ['Marital_Status', 'House_Ownership', 'Car_Ownership']
 
         # Label encoding for Marital_Status, House_Ownership, Car_Ownership
@@ -331,8 +330,8 @@ def run_ml_app() :
         st.subheader('Prediction Result')
         single_array = np.array(df_prediction_scaled).reshape(1, -1)
 
-        # model = load_model('tuned_random_forest_model.pkl')
-        model = load_model('tuned_random_forest_model.joblib')
+        model = load_model('tuned_random_forest_model.pkl')
+        # model = load_model('tuned_random_forest_model.joblib')
 
         prediction = model.predict(single_array)
 
