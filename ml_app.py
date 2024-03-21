@@ -5,6 +5,7 @@ from sklearn.preprocessing import MinMaxScaler
 
 import streamlit as st
 import joblib
+import pickle
 import os
 
 attribute_info = """
@@ -24,11 +25,13 @@ attribute_info = """
     """
 
 def load_model(model_file):
-    loaded_model = joblib.load(open(os.path.join(model_file), 'rb'))
+    with open(model_file, 'rb') as file:
+        loaded_model = pickle.load(file)
     return loaded_model
 
-# # Another way to directly load model
-# model = joblib.load('tuned_random_forest_model.joblib') 
+# def load_model(model_file):
+#     loaded_model = joblib.load(open(model_file, 'rb'))
+#     return loaded_model
 
 def run_ml_app() :
     st.subheader('Machine Learning Section')
@@ -308,7 +311,9 @@ def run_ml_app() :
         st.subheader('Prediction Result')
         single_array = np.array(df_prediction_scaled).reshape(1, -1)
 
-        model = load_model('tuned_random_forest_model.joblib')
+        model = load_model('tuned_random_forest_model.pkl')
+        # model = load_model('tuned_random_forest_model.joblib')
+
 
         prediction = model.predict(single_array)
 

@@ -1,7 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as stc
 
-from model_deployment_processing import run_ml_app
+from ml_app import run_ml_app
 
 html_temp = """
             <div style="background-color:#2E8B57;padding:20px">
