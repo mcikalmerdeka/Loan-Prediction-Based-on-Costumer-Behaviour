@@ -43,83 +43,96 @@ def run_ml_app() :
         income = st.number_input('Income', 10310, 9999938)
         age = st.number_input('Age', 21, 79)
         experience = st.number_input('Experience', 0, 20)
-        marital_status = st.selectbox('Marital Status', [['single' 'married']])
-        house_ownership = st.selectbox('House Ownership', [['rented' 'norent_noown' 'owned']])
-        car_ownership = st.selectbox('Car Ownership', ['no' 'yes'])
+        marital_status = st.selectbox('Marital Status', ['single', 'married'])
+        house_ownership = st.selectbox('House Ownership', ['rented', 'norent_noown', 'owned'])
+        car_ownership = st.selectbox('Car Ownership', ['no', 'yes'])
 
-        profession = st.selectbox('Profession', [['Mechanical_engineer' 'Software_Developer' 'Technical_writer'
-                                'Civil_servant' 'Librarian' 'Economist' 'Flight_attendant' 'Architect'
-                                'Designer' 'Physician' 'Financial_Analyst' 'Air_traffic_controller'
-                                'Politician' 'Police_officer' 'Artist' 'Surveyor' 'Design_Engineer'
-                                'Chemical_engineer' 'Hotel_Manager' 'Dentist' 'Comedian'
-                                'Biomedical_Engineer' 'Graphic_Designer' 'Computer_hardware_engineer'
-                                'Petroleum_Engineer' 'Secretary' 'Computer_operator'
-                                'Chartered_Accountant' 'Technician' 'Microbiologist' 'Fashion_Designer'
-                                'Aviator' 'Psychologist' 'Magistrate' 'Lawyer' 'Firefighter' 'Engineer'
-                                'Official' 'Analyst' 'Geologist' 'Drafter' 'Statistician' 'Web_designer'
-                                'Consultant' 'Chef' 'Army_officer' 'Surgeon' 'Scientist' 'Civil_engineer'
-                                'Industrial_Engineer' 'Technology_specialist']])
+        profession = st.selectbox('Profession', ['mechanical engineer', 'software developer', 'technical writer',
+                                                'civil servant', 'librarian', 'economist', 'flight attendant',
+                                                'architect', 'designer', 'physician', 'financial analyst',
+                                                'air traffic controller', 'politician', 'police officer', 'artist',
+                                                'surveyor', 'design engineer', 'chemical engineer',
+                                                'hotel manager', 'dentist', 'comedian', 'biomedical engineer',
+                                                'graphic designer', 'computer hardware engineer',
+                                                'petroleum engineer', 'secretary', 'computer operator',
+                                                'chartered accountant', 'technician', 'microbiologist',
+                                                'fashion designer', 'aviator', 'psychologist', 'magistrate',
+                                                'lawyer', 'firefighter', 'engineer', 'official', 'analyst',
+                                                'geologist', 'drafter', 'statistician', 'web designer',
+                                                'consultant', 'chef', 'army officer', 'surgeon', 'scientist',
+                                                'civil engineer', 'industrial engineer', 'technology specialist'])
         
-        city = st.selectbox('City', [['Rewa' 'Parbhani' 'Alappuzha' 'Bhubaneswar' 'Tiruchirappalli[10]'
-                                'Jalgaon' 'Tiruppur' 'Jamnagar' 'Kota[6]' 'Karimnagar' 'Hajipur[31]'
-                                'Adoni' 'Erode[17]' 'Kollam' 'Madurai' 'Anantapuram[24]' 'Kamarhati'
-                                'Bhusawal' 'Sirsa' 'Amaravati' 'Secunderabad' 'Ahmedabad' 'Ajmer'
-                                'Ongole' 'Miryalaguda' 'Ambattur' 'Indore' 'Pondicherry' 'Shimoga'
-                                'Chennai' 'Gulbarga' 'Khammam' 'Saharanpur' 'Gopalpur' 'Amravati' 'Udupi'
-                                'Howrah' 'Aurangabad[39]' 'Hospet' 'Shimla' 'Khandwa' 'Bidhannagar'
-                                'Bellary' 'Danapur' 'Purnia[26]' 'Bijapur' 'Patiala' 'Malda' 'Sagar'
-                                'Durgapur' 'Junagadh' 'Singrauli' 'Agartala' 'Thanjavur' 'Hindupur'
-                                'Naihati' 'North_Dumdum' 'Panchkula' 'Anantapur' 'Serampore' 'Bathinda'
-                                'Nadiad' 'Kanpur' 'Haridwar' 'Berhampur' 'Jamshedpur' 'Hyderabad' 'Bidar'
-                                'Kottayam' 'Solapur' 'Suryapet' 'Aizawl' 'Asansol' 'Deoghar' 'Eluru[25]'
-                                'Ulhasnagar' 'Aligarh' 'South_Dumdum' 'Berhampore' 'Gandhinagar'
-                                'Sonipat' 'Muzaffarpur' 'Raichur' 'Rajpur_Sonarpur' 'Ambarnath' 'Katihar'
-                                'Kozhikode' 'Vellore' 'Malegaon' 'Kochi' 'Nagaon' 'Nagpur' 'Srinagar'
-                                'Davanagere' 'Bhagalpur' 'Siwan[32]' 'Meerut' 'Dindigul' 'Bhatpara'
-                                'Ghaziabad' 'Kulti' 'Chapra' 'Dibrugarh' 'Panihati' 'Bhiwandi' 'Morbi'
-                                'Kalyan-Dombivli' 'Gorakhpur' 'Panvel' 'Siliguri' 'Bongaigaon' 'Patna'
-                                'Ramgarh' 'Ozhukarai' 'Mirzapur' 'Akola' 'Satna' 'Motihari[34]' 'Jalna'
-                                'Jalandhar' 'Unnao' 'Karnal' 'Cuttack' 'Proddatur' 'Ichalkaranji'
-                                'Warangal[11][12]' 'Jhansi' 'Bulandshahr' 'Narasaraopet' 'Chinsurah'
-                                'Jehanabad[38]' 'Dhanbad' 'Gudivada' 'Gandhidham' 'Raiganj'
-                                'Kishanganj[35]' 'Varanasi' 'Belgaum' 'Tirupati[21][22]' 'Tumkur'
-                                'Coimbatore' 'Kurnool[18]' 'Gurgaon' 'Muzaffarnagar' 'Aurangabad'
-                                'Bhavnagar' 'Arrah' 'Munger' 'Tirunelveli' 'Mumbai' 'Mango' 'Nashik'
-                                'Kadapa[23]' 'Amritsar' 'Khora,_Ghaziabad' 'Ambala' 'Agra' 'Ratlam'
-                                'Surendranagar_Dudhrej' 'Delhi_city' 'Bhopal' 'Hapur' 'Rohtak' 'Durg'
-                                'Korba' 'Bangalore' 'Shivpuri' 'Thrissur' 'Vijayanagaram' 'Farrukhabad'
-                                'Nangloi_Jat' 'Madanapalle' 'Thoothukudi' 'Nagercoil' 'Gaya'
-                                'Chandigarh_city' 'Jammu[16]' 'Kakinada' 'Dewas' 'Bhalswa_Jahangir_Pur'
-                                'Baranagar' 'Firozabad' 'Phusro' 'Allahabad' 'Guna' 'Thane' 'Etawah'
-                                'Vasai-Virar' 'Pallavaram' 'Morena' 'Ballia' 'Surat' 'Burhanpur'
-                                'Phagwara' 'Mau' 'Mangalore' 'Alwar' 'Mahbubnagar' 'Maheshtala'
-                                'Hazaribagh' 'Bihar_Sharif' 'Faridabad' 'Lucknow' 'Tenali' 'Barasat'
-                                'Amroha' 'Giridih' 'Begusarai' 'Medininagar' 'Rajahmundry[19][20]'
-                                'Saharsa[29]' 'New_Delhi' 'Bhilai' 'Moradabad' 'Machilipatnam'
-                                'Mira-Bhayandar' 'Pali' 'Navi_Mumbai' 'Mehsana' 'Imphal' 'Kolkata'
-                                'Sambalpur' 'Ujjain' 'Madhyamgram' 'Jabalpur' 'Jamalpur[36]' 'Ludhiana'
-                                'Bareilly' 'Gangtok' 'Anand' 'Dehradun' 'Pune' 'Satara' 'Srikakulam'
-                                'Raipur' 'Jodhpur' 'Darbhanga' 'Nizamabad' 'Nandyal' 'Dehri[30]' 'Jorhat'
-                                'Ranchi' 'Kumbakonam' 'Guntakal' 'Haldia' 'Loni' 'Pimpri-Chinchwad'
-                                'Rajkot' 'Nanded' 'Noida' 'Kirari_Suleman_Nagar' 'Jaunpur' 'Bilaspur'
-                                'Sambhal' 'Dhule' 'Rourkela' 'Thiruvananthapuram' 'Dharmavaram'
-                                'Nellore[14][15]' 'Visakhapatnam[4]' 'Karawal_Nagar' 'Jaipur' 'Avadi'
-                                'Bhimavaram' 'Bardhaman' 'Silchar' 'Buxar[37]' 'Kavali' 'Tezpur'
-                                'Ramagundam[27]' 'Yamunanagar' 'Sri_Ganganagar' 'Sasaram[30]' 'Sikar'
-                                'Bally' 'Bhiwani' 'Rampur' 'Uluberia' 'Sangli-Miraj_&_Kupwad' 'Hosur'
-                                'Bikaner' 'Shahjahanpur' 'Sultan_Pur_Majra' 'Vijayawada' 'Bharatpur'
-                                'Tadepalligudem' 'Tinsukia' 'Salem' 'Mathura' 'Guntur[13]'
-                                'Hubliâ€“Dharwad' 'Guwahati' 'Chittoor[28]' 'Tiruvottiyur' 'Vadodara'
-                                'Ahmednagar' 'Fatehpur' 'Bhilwara' 'Kharagpur' 'Bettiah[33]' 'Bhind'
-                                'Bokaro' 'Karaikudi' 'Raebareli' 'Pudukkottai' 'Udaipur'
-                                'Mysore[7][8][9]' 'Panipat' 'Latur' 'Tadipatri' 'Bahraich' 'Orai'
-                                'Raurkela_Industrial_Township' 'Gwalior' 'Katni' 'Chandrapur' 'Kolhapur']])
+        city = st.selectbox('City', ['rewa', 'parbhani', 'alappuzha', 'bhubaneswar', 'tiruchirappalli',
+                                    'jalgaon', 'tiruppur', 'jamnagar', 'kota', 'karimnagar', 'hajipur',
+                                    'adoni', 'erode', 'kollam', 'madurai', 'anantapuram', 'kamarhati',
+                                    'bhusawal', 'sirsa', 'amaravati', 'secunderabad', 'ahmedabad',
+                                    'ajmer', 'ongole', 'miryalaguda', 'ambattur', 'indore',
+                                    'pondicherry', 'shimoga', 'chennai', 'gulbarga', 'khammam',
+                                    'saharanpur', 'gopalpur', 'amravati', 'udupi', 'howrah',
+                                    'aurangabad', 'hospet', 'shimla', 'khandwa', 'bidhannagar',
+                                    'bellary', 'danapur', 'purnia', 'bijapur', 'patiala', 'malda',
+                                    'sagar', 'durgapur', 'junagadh', 'singrauli', 'agartala',
+                                    'thanjavur', 'hindupur', 'naihati', 'north dumdum', 'panchkula',
+                                    'anantapur', 'serampore', 'bathinda', 'nadiad', 'kanpur',
+                                    'haridwar', 'berhampur', 'jamshedpur', 'hyderabad', 'bidar',
+                                    'kottayam', 'solapur', 'suryapet', 'aizawl', 'asansol', 'deoghar',
+                                    'eluru', 'ulhasnagar', 'aligarh', 'south dumdum', 'berhampore',
+                                    'gandhinagar', 'sonipat', 'muzaffarpur', 'raichur',
+                                    'rajpur sonarpur', 'ambarnath', 'katihar', 'kozhikode', 'vellore',
+                                    'malegaon', 'kochi', 'nagaon', 'nagpur', 'srinagar', 'davanagere',
+                                    'bhagalpur', 'siwan', 'meerut', 'dindigul', 'bhatpara',
+                                    'ghaziabad', 'kulti', 'chapra', 'dibrugarh', 'panihati',
+                                    'bhiwandi', 'morbi', 'kalyan-dombivli', 'gorakhpur', 'panvel',
+                                    'siliguri', 'bongaigaon', 'patna', 'ramgarh', 'ozhukarai',
+                                    'mirzapur', 'akola', 'satna', 'motihari', 'jalna', 'jalandhar',
+                                    'unnao', 'karnal', 'cuttack', 'proddatur', 'ichalkaranji',
+                                    'warangal', 'jhansi', 'bulandshahr', 'narasaraopet', 'chinsurah',
+                                    'jehanabad', 'dhanbad', 'gudivada', 'gandhidham', 'raiganj',
+                                    'kishanganj', 'varanasi', 'belgaum', 'tirupati', 'tumkur',
+                                    'coimbatore', 'kurnool', 'gurgaon', 'muzaffarnagar', 'bhavnagar',
+                                    'arrah', 'munger', 'tirunelveli', 'mumbai', 'mango', 'nashik',
+                                    'kadapa', 'amritsar', 'khora  ghaziabad', 'ambala', 'agra',
+                                    'ratlam', 'surendranagar dudhrej', 'delhi city', 'bhopal', 'hapur',
+                                    'rohtak', 'durg', 'korba', 'bangalore', 'shivpuri', 'thrissur',
+                                    'vijayanagaram', 'farrukhabad', 'nangloi jat', 'madanapalle',
+                                    'thoothukudi', 'nagercoil', 'gaya', 'chandigarh city', 'jammu',
+                                    'kakinada', 'dewas', 'bhalswa jahangir pur', 'baranagar',
+                                    'firozabad', 'phusro', 'allahabad', 'guna', 'thane', 'etawah',
+                                    'vasai-virar', 'pallavaram', 'morena', 'ballia', 'surat',
+                                    'burhanpur', 'phagwara', 'mau', 'mangalore', 'alwar',
+                                    'mahbubnagar', 'maheshtala', 'hazaribagh', 'bihar sharif',
+                                    'faridabad', 'lucknow', 'tenali', 'barasat', 'amroha', 'giridih',
+                                    'begusarai', 'medininagar', 'rajahmundry', 'saharsa', 'new delhi',
+                                    'bhilai', 'moradabad', 'machilipatnam', 'mira-bhayandar', 'pali',
+                                    'navi mumbai', 'mehsana', 'imphal', 'kolkata', 'sambalpur',
+                                    'ujjain', 'madhyamgram', 'jabalpur', 'jamalpur', 'ludhiana',
+                                    'bareilly', 'gangtok', 'anand', 'dehradun', 'pune', 'satara',
+                                    'srikakulam', 'raipur', 'jodhpur', 'darbhanga', 'nizamabad',
+                                    'nandyal', 'dehri', 'jorhat', 'ranchi', 'kumbakonam', 'guntakal',
+                                    'haldia', 'loni', 'pimpri-chinchwad', 'rajkot', 'nanded', 'noida',
+                                    'kirari suleman nagar', 'jaunpur', 'bilaspur', 'sambhal', 'dhule',
+                                    'rourkela', 'thiruvananthapuram', 'dharmavaram', 'nellore',
+                                    'visakhapatnam', 'karawal nagar', 'jaipur', 'avadi', 'bhimavaram',
+                                    'bardhaman', 'silchar', 'buxar', 'kavali', 'tezpur', 'ramagundam',
+                                    'yamunanagar', 'sri ganganagar', 'sasaram', 'sikar', 'bally',
+                                    'bhiwani', 'rampur', 'uluberia', 'sangli-miraj & kupwad', 'hosur',
+                                    'bikaner', 'shahjahanpur', 'sultan pur majra', 'vijayawada',
+                                    'bharatpur', 'tadepalligudem', 'tinsukia', 'salem', 'mathura',
+                                    'guntur', 'hubliâ€“dharwad', 'guwahati', 'chittoor',
+                                    'tiruvottiyur', 'vadodara', 'ahmednagar', 'fatehpur', 'bhilwara',
+                                    'kharagpur', 'bettiah', 'bhind', 'bokaro', 'karaikudi',
+                                    'raebareli', 'pudukkottai', 'udaipur', 'mysore', 'panipat',
+                                    'latur', 'tadipatri', 'bahraich', 'orai',
+                                    'raurkela industrial township', 'gwalior', 'katni', 'chandrapur',
+                                    'kolhapur'])
         
-        state = st.selectbox('State', [['Madhya_Pradesh' 'Maharashtra' 'Kerala' 'Odisha' 'Tamil_Nadu' 'Gujarat'
-                                'Rajasthan' 'Telangana' 'Bihar' 'Andhra_Pradesh' 'West_Bengal' 'Haryana'
-                                'Puducherry' 'Karnataka' 'Uttar_Pradesh' 'Himachal_Pradesh' 'Punjab'
-                                'Tripura' 'Uttarakhand' 'Jharkhand' 'Mizoram' 'Assam' 'Jammu_and_Kashmir'
-                                'Delhi' 'Chhattisgarh' 'Chandigarh' 'Uttar_Pradesh[5]' 'Manipur' 'Sikkim']])
+        state = st.selectbox('State', ['madhya pradesh', 'maharashtra', 'kerala', 'odisha', 'tamil nadu',
+                                    'gujarat', 'rajasthan', 'telangana', 'bihar', 'andhra pradesh',
+                                    'west bengal', 'haryana', 'puducherry', 'karnataka',
+                                    'uttar pradesh', 'himachal pradesh', 'punjab', 'tripura',
+                                    'uttarakhand', 'jharkhand', 'mizoram', 'assam',
+                                    'jammu and kashmir', 'delhi', 'chhattisgarh', 'chandigarh',
+                                    'manipur', 'sikkim'])
         
         current_job_years = st.number_input('Current Job Years', 0, 14)
         current_house_years = st.number_input('Current House Years', 10, 14)
@@ -260,15 +273,30 @@ def run_ml_app() :
         # Drop the original City and City_Group after one-hot encoding
         df_prediction.drop(columns=['City', 'City_Group'], inplace=True)
     
+        # # Match Columns
+        # for column in df_model.columns :
+        #     if column not in df_prediction.columns :
+        #         df_prediction[column] = 0
+
+        # for column in df_prediction.columns :
+        #     if column not in df_model.columns :
+        #         df_prediction.drop(columns=column, inplace=True)
+
+        # df_prediction = df_prediction[df_model.columns]
+
         # Match Columns
-        for column in df_model.columns :
-            if column not in df_prediction.columns :
-                df_prediction[column] = 0
+        missing_columns = set(df_model.columns) - set(df_prediction.columns)
+        extra_columns = set(df_prediction.columns) - set(df_model.columns)
 
-        for column in df_prediction.columns :
-            if column not in df_model.columns :
-                df_prediction.drop(columns=column, inplace=True)
+        # Add missing columns to df_prediction and set their values to 0
+        for column in missing_columns:
+            df_prediction[column] = 0
 
+        # Drop extra columns from df_prediction
+        if extra_columns:
+            df_prediction.drop(columns=extra_columns, inplace=True)
+
+        # Reorder columns in df_prediction to match the order in df_model.columns
         df_prediction = df_prediction[df_model.columns]
 
         # Scaling Data
