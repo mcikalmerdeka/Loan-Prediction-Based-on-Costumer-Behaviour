@@ -48,3 +48,17 @@ To resolve this issue, you should ensure that the model is saved and loaded usin
 5. **Re-save the model**: Once you've ensured compatibility, re-save the model using the correct versions of scikit-learn and joblib before deploying it.
 
 By following these steps, you should be able to resolve the dtype incompatibility issue and load the model successfully in your deployment environment.
+
+Version Checking local vscode
+numpy version :  1.26.4
+pandas version :  2.2.1
+seaborn version :  0.13.2
+scikit-learn version: 1.4.0
+joblib version: 1.3.2
+
+Version Checking google colab
+numpy version :  1.25.2
+pandas version :  1.5.3
+seaborn version :  0.13.1
+scikit-learn version: 1.2.2
+joblib version: 1.3.2

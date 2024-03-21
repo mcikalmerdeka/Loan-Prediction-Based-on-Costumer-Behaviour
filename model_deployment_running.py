@@ -4,9 +4,9 @@ import streamlit.components.v1 as stc
 from model_deployment_processing import run_ml_app
 
 html_temp = """
-            <div style="background-color:#6F8FAF;padding:10px;border-radius:10px">
-		    <h1 style="color:white;text-align:center;">Loan Prediction App </h1>
-		    <h2 style="color:white;text-align:center;">Dackers Lending Company </h2>
+            <div style="background-color:#2E8B57;padding:20px">
+		    <h1 style="color:white;text-align:center;font-family: Arial, sans-serif;">Loan Prediction App</h1>
+		    <h2 style="color:white;text-align:center;font-family: Arial, sans-serif;">Dackers Lending Company</h2>
 	    </div>
             """
 
@@ -16,8 +16,8 @@ desc_temp = """
             #### Data Source
             - https://www.kaggle.com/datasets/subhamjain/loan-prediction-based-on-customer-behavior
             #### App Content
-            - Home
-            - Machine Learning Section
+            - Home Section
+            - Machine Learning Prediction Section
             """
 
 def main():
@@ -34,19 +34,23 @@ def main():
                             border-radius: 50%;
                             overflow: hidden;
                             box-shadow: 0 0 10px rgba(1, 1, 1, 1);
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            background-color: white;
                         }
                         
                         .circle-image img {
                             width: 100%;
                             height: 100%;
-                            object-fit: cover;
+                            object-fit: contain;
                         }
                     </style>
                     <div class="circle-image">
                         <img src="https://www.nicepng.com/png/detail/270-2702624_personal-loans-finanas-icon.png"> 
                     </div>
                     """
-                 )
+                )
         st.subheader('Loan Prediction App')
         st.write("---")
         choice = st.selectbox("Menu", menu)
