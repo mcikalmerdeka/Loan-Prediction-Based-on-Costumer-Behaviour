@@ -13,19 +13,20 @@
 7. Mochamad Ali Mustofa
 
 ## Problem Statement
-Sebuah perusahaan pemberi pinjaman perlu melakukan verifikasi terhadap pengajuan pinjaman dari calon-calon peminjamnya (customer), perusahaan ini memiliki data-data peminjam terdahulu berikut dengan kelayakannya (kemampuan melunasi atau tidak). Perusahaan ini ingin memiliki sistem yang dapat memprediksi kelayakan untuk calon-calon peminjam di masa yang akan datang berdasarkan data-data peminjam terdahulu untuk mengurangi resiko gagal bayar.
+A lending company needs to verify loan applications from its prospective borrowers (customers). The manual verification procedure conducted by the company has resulted in numerous inaccurate assessments, leading to loans being granted to borrowers who ultimately fail to repay (default). This has proven detrimental to the company as it incurs financial losses without any return. Additionally, the manual verification process also consumes a considerable amount of time.
+
+Building on this issue, the company aims to develop an automated system that can predict the creditworthiness of prospective borrowers in the future based on past borrower data to reduce the selection of potential customers with high default risks.
 
 ## Goals
-* Peningkatan efisiensi : Meningkatkan proses penilaian risiko kredit agar lebih efisien dan tidak memakan waktu yang berlebihan.
-* Peningkatan ketepatan dalam penilaian risiko kredit: Memperbaiki tingkat ketepatan dalam menilai risiko kredit dengan menggunakan model machine learning.
+* Enhanced credit risk evaluation: Improve the assessment of credit risk by implementing machine learning models. (**MAIN**)
+* Increased efficiency: Streamline the credit risk assessment process for greater effectiveness and reduced processing time. (**SECONDARY**)
 
 ## Objectives
-Sasaran akhir dari proyek ini adalah menciptakan model machine learning yang dapat:
+The ultimate goal of this project is to create a machine learning model that can:
 
-* Memprediksi risiko kredit dengan tingkat akurasi yang tinggi.
-* Menilai sejumlah besar variabel dan faktor untuk menghasilkan prediksi yang komprehensif.
-* Memberikan keputusan penilaian risiko secara otomatis dalam waktu yang singkat.
-* Mengurangi risiko kerugian akibat penilaian risiko yang kurang tepat.
+* Predict credit risk with a high recall rate. The objective is to reduce the risk of losses due to inaccurate risk assessments.
+* Provide automated credit risk assessment decisions in a short amount of time.
 
 ## Business Metrics
-* Default rate (%) : Persentase jumlah calon nasabah yang gagal membayar pinjaman (default) dibagi dengan jumlah total nasabah. Upaya menurunkan tingkat default rate dapat mengurangi persentase pelanggan yang gagal membayar pinjaman
+* Default Rate (%) : The percentage of prospective customers who fail to repay a loan (default) divided by the total number of customers. (**MAIN**)
+* Approval Time (**SECONDARY**)
