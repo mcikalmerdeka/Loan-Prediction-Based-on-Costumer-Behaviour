@@ -248,7 +248,7 @@ def run_ml_app() :
                                     'Generation X' : 2,
                                     'Boomers II' : 3,
                                     'Boomers I' : 4,
-                                    'Other' : 5},inplace=True)
+                                    'Other' : 5}, inplace=True)
 
         df_prediction['Generation'] = df_prediction['Generation'].astype('int64')
 
