@@ -171,17 +171,17 @@ def run_ml_app() :
         # Initial transformation for prediction dataframe
         df_prediction.drop(columns='Id', inplace=True)
 
-        columns_to_clean = ['Profession', 'State', 'City']
+        # columns_to_clean = ['Profession', 'State', 'City']
 
-        # Removing those characters from the 'Profession', 'City', and 'State' column
-        for col in columns_to_clean:
-            df_prediction[col] = df_prediction[col].str.replace(r'\[\d+\]', '', regex=True)
-            df_prediction[col] = df_prediction[col].str.replace('_', ' ')
-            df_prediction[col] = df_prediction[col].str.replace(',', ' ')
+        # # Removing those characters from the 'Profession', 'City', and 'State' column
+        # for col in columns_to_clean:
+        #     df_prediction[col] = df_prediction[col].str.replace(r'\[\d+\]', '', regex=True)
+        #     df_prediction[col] = df_prediction[col].str.replace('_', ' ')
+        #     df_prediction[col] = df_prediction[col].str.replace(',', ' ')
 
-        # Rename the format of the values inthose columns to title
-        for col in columns_to_clean:
-            df_prediction[col] = df_prediction[col].str.lower()
+        # # Rename the format of the values inthose columns to title
+        # for col in columns_to_clean:
+        #     df_prediction[col] = df_prediction[col].str.lower()
 
         # Cleaning Data
         df_prediction['City'] = df_prediction['City'].replace('delhi city', 'new delhi')
