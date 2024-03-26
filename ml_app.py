@@ -97,7 +97,7 @@ def run_ml_app() :
                                     'coimbatore', 'kurnool', 'gurgaon', 'muzaffarnagar', 'bhavnagar',
                                     'arrah', 'munger', 'tirunelveli', 'mumbai', 'mango', 'nashik',
                                     'kadapa', 'amritsar', 'khora  ghaziabad', 'ambala', 'agra',
-                                    'ratlam', 'surendranagar dudhrej', 'delhi city', 'bhopal', 'hapur',
+                                    'ratlam', 'surendranagar dudhrej', 'bhopal', 'hapur',
                                     'rohtak', 'durg', 'korba', 'bangalore', 'shivpuri', 'thrissur',
                                     'vijayanagaram', 'farrukhabad', 'nangloi jat', 'madanapalle',
                                     'thoothukudi', 'nagercoil', 'gaya', 'chandigarh city', 'jammu',
@@ -158,18 +158,17 @@ def run_ml_app() :
                 'City' : city,
                 'State' : state,
                 'Current_Job_Years' : current_job_years,
-                'Current_House_Years' : current_house_years 
+                'Current_House_Years' : current_house_years
             }
-            #st.write(result)
+            # st.write(result)
 
         df_model = pd.read_csv('df_model.csv')
-        df_prediction = result
-        df_prediction = pd.DataFrame(df_prediction, index=[0])
+        df_prediction = pd.DataFrame(result, index=[0])
         st.write('Your Selected Options')
         st.table(df_prediction)
 
         # Initial transformation for prediction dataframe
-        df_prediction.drop(columns='Id', inplace=True)
+        df_prediction = df_prediction.drop(columns=['Id', 'Profession'])
 
         # columns_to_clean = ['Profession', 'State', 'City']
 
@@ -184,43 +183,44 @@ def run_ml_app() :
         #     df_prediction[col] = df_prediction[col].str.lower()
 
         # Cleaning Data
-        df_prediction['City'] = df_prediction['City'].replace('delhi city', 'new delhi')
+        # df_prediction['City'] = df_prediction['City'].replace('delhi city', 'new delhi')
 
         # Encoding Data
         cats_few = ['Marital_Status', 'House_Ownership', 'Car_Ownership']
 
         # Label encoding for Marital_Status, House_Ownership, Car_Ownership
-        df_prediction.replace({'Marital_Status':{'single': 0, 'married' : 1},
+        df_prediction = df_prediction.replace({'Marital_Status':{'single': 0, 'married' : 1},
                             'House_Ownership':{'norent_noown' : 0, 'rented' : 1, 'owned' : 2},
-                            'Car_Ownership':{'no': 0, 'yes': 1 }},
-                            inplace=True)
+                            'Car_Ownership':{'no': 0, 'yes': 1 }})
 
         for feature in cats_few :
             df_prediction[feature] = df_prediction[feature].astype('int64')
 
-        # Profession Grouping
-        profession_groups = {
-                            'engineering': ['engineer', 'mechanical engineer', 'civil engineer', 'industrial engineer', 'design engineer', 'chemical engineer', 'biomedical engineer', 'computer hardware engineer', 'petroleum engineer', 'surveyor', 'drafter'],
-                            'technology': ['software developer', 'computer operator', 'technology specialist', 'web designer', 'technician'],
-                            'healthcare': ['physician', 'dentist', 'surgeon', 'psychologist'],
-                            'finance': ['economist', 'financial analyst', 'chartered accountant'],
-                            'design': ['architect', 'designer', 'graphic designer', 'fashion designer', 'artist'],
-                            'aviation': ['flight attendant', 'air traffic controller', 'aviator'],
-                            'government public service': ['civil servant', 'politician', 'police officer', 'magistrate', 'army officer', 'firefighter', 'lawyer', 'official', 'librarian'],
-                            'business management' : ['hotel manager', 'consultant', 'secretary'],
-                            'science research' : ['scientist', 'microbiologist', 'geologist', 'statistician', 'analyst'],
-                            'miscellaneous': ['comedian', 'chef', 'technical writer']
-                        }
+        # # Profession Grouping
+        # profession_groups = {
+        #                     'engineering': ['engineer', 'mechanical engineer', 'civil engineer', 'industrial engineer', 'design engineer', 'chemical engineer', 'biomedical engineer', 'computer hardware engineer', 'petroleum engineer', 'surveyor', 'drafter'],
+        #                     'technology': ['software developer', 'computer operator', 'technology specialist', 'web designer', 'technician'],
+        #                     'healthcare': ['physician', 'dentist', 'surgeon', 'psychologist'],
+        #                     'finance': ['economist', 'financial analyst', 'chartered accountant'],
+        #                     'design': ['architect', 'designer', 'graphic designer', 'fashion designer', 'artist'],
+        #                     'aviation': ['flight attendant', 'air traffic controller', 'aviator'],
+        #                     'government public service': ['civil servant', 'politician', 'police officer', 'magistrate', 'army officer', 'firefighter', 'lawyer', 'official', 'librarian'],
+        #                     'business management' : ['hotel manager', 'consultant', 'secretary'],
+        #                     'science research' : ['scientist', 'microbiologist', 'geologist', 'statistician', 'analyst'],
+        #                     'miscellaneous': ['comedian', 'chef', 'technical writer']
+        #                 }
 
-        df_prediction['Profession_Group'] = df_prediction['Profession'].map({prof: group for group, prof_list in profession_groups.items() for prof in prof_list})
+        # df_prediction['Profession_Group'] = df_prediction['Profession'].map({prof: group for group, prof_list in profession_groups.items() for prof in prof_list})
 
-        #One-hot Encoding for Profession grouping
-        onehots = pd.get_dummies(df_prediction['Profession_Group'], prefix='Prof')
-        onehots = onehots.astype(int)
-        df_prediction = pd.concat([df_prediction, onehots], axis=1)
+        # df_prediction = pd.get_dummies(df_prediction, columns=['Profession_Group'], prefix='Profession', drop_first=True)
 
-        #Drop the Profession_Group after one-hot encoding
-        df_prediction.drop(columns='Profession_Group', inplace=True)
+        # #One-hot Encoding for Profession grouping
+        # onehots = pd.get_dummies(df_prediction['Profession_Group'], prefix='Prof')
+        # onehots = onehots.astype(int)
+        # df_prediction = pd.concat([df_prediction, onehots], axis=1)
+
+        # #Drop the Profession_Group after one-hot encoding
+        # df_prediction.drop(columns='Profession_Group', inplace=True)
 
         # Ratio Experience by Age
         df_prediction['Experience_Age_Ratio'] = df_prediction['Experience'] / df_prediction['Age']
@@ -243,14 +243,16 @@ def run_ml_app() :
         
         df_prediction['Generation'] = df_prediction['Age'].apply(assign_generation)
 
-        df_prediction['Generation'].replace({'Generation Z': 0,
-                                    'Generation Millenials': 1,
-                                    'Generation X' : 2,
-                                    'Boomers II' : 3,
-                                    'Boomers I' : 4,
-                                    'Other' : 5}, inplace=True)
+        generation_mapping = {
+                            'Generation Z': 0,
+                            'Generation Millennials': 1,
+                            'Generation X': 2,
+                            'Boomers II': 3,
+                            'Boomers I': 4,
+                            'Other': 5
+                        }
 
-        df_prediction['Generation'] = df_prediction['Generation'].astype('int64')
+        df_prediction['Generation'] = df_prediction['Generation'].map(generation_mapping)
 
         # State
         # Function for grouping state
@@ -266,13 +268,16 @@ def run_ml_app() :
 
         df_prediction['State_Group'] = df_prediction['State'].apply(state_group)
 
-        # One-hot Encoding for State grouping
-        onehots = pd.get_dummies(df_prediction['State_Group'], prefix='State')
-        onehots = onehots.astype(int)
-        df_prediction = pd.concat([df_prediction, onehots], axis=1)
+        df_prediction = pd.get_dummies(df_prediction, columns=['State_Group'], prefix='State', drop_first=True)
 
-        # Drop the original State and State_Group after one-hot encoding
-        df_prediction.drop(columns=['State', 'State_Group'], inplace=True)
+
+        # # One-hot Encoding for State grouping
+        # onehots = pd.get_dummies(df_prediction['State_Group'], prefix='State')
+        # onehots = onehots.astype(int)
+        # df_prediction = pd.concat([df_prediction, onehots], axis=1)
+
+        # # Drop the original State and State_Group after one-hot encoding
+        # df_prediction = df_prediction.drop(columns=['State', 'State_Group'])
 
         # City
         # Function for grouping city
@@ -293,13 +298,15 @@ def run_ml_app() :
 
         df_prediction['City_Group'] = df_prediction['City'].apply(city_group)
 
-        # One-hot Encoding for City grouping
-        onehots = pd.get_dummies(df_prediction['City_Group'], prefix='City')
-        onehots = onehots.astype(int)
-        df_prediction = pd.concat([df_prediction, onehots], axis=1)
+        df_prediction = pd.get_dummies(df_prediction, columns=['City_Group'], prefix='City', drop_first=True)
 
-        # Drop the original City and City_Group after one-hot encoding
-        df_prediction.drop(columns=['City', 'City_Group'], inplace=True)
+        # # One-hot Encoding for City grouping
+        # onehots = pd.get_dummies(df_prediction['City_Group'], prefix='City')
+        # onehots = onehots.astype(int)
+        # df_prediction = pd.concat([df_prediction, onehots], axis=1)
+
+        # # Drop the original City and City_Group after one-hot encoding
+        # df_prediction = df_prediction.drop(columns=['City', 'City_Group'])
     
         # # Match Columns
         # for column in df_model.columns :
@@ -312,13 +319,13 @@ def run_ml_app() :
 
         # df_prediction = df_prediction[df_model.columns]
 
-        # Match Columns
-        matching_columns = set(df_model.columns).intersection(set(df_prediction.columns))
-        extra_columns = set(df_prediction.columns) - set(df_model.columns)
+        # # Match Columns
+        # matching_columns = set(df_model.columns).intersection(set(df_prediction.columns))
+        # extra_columns = set(df_prediction.columns) - set(df_model.columns)
 
-        # Drop extra columns from df_prediction if there are no matching columns
-        if extra_columns and not matching_columns:
-            df_prediction = df_prediction.drop(columns=extra_columns)
+        # # Drop extra columns from df_prediction if there are no matching columns
+        # if extra_columns and not matching_columns:
+        #     df_prediction = df_prediction.drop(columns=extra_columns)
 
         # Scaling Data
         ms = MinMaxScaler()
