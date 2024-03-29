@@ -329,3 +329,4 @@ def run_ml_app() :
             st.info('This customer has low risk of default, Loan approved')
         elif prediction == 1 :
             st.info('This customer has high risk of default, Loan not approved')
+            
