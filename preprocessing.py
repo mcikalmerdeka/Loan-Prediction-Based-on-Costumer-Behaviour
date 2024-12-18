@@ -35,3 +35,27 @@ def check_data_information(data, cols):
         ]
     )
     return desc_df
+
+# Initial data transformation
+def initial_data_transform(data):
+    # Rename some columns
+    data = data.rename(columns={'CURRENT_JOB_YRS' : 'Current_Job_Years',
+                                'CURRENT_HOUSE_YRS' : 'Current_House_Years',
+                                'CITY' : 'City',
+                                'STATE' : 'State',
+                                'Married/Single' : 'Marital_Status'})
+    
+    # Clean invalid characters and lowercase the values of categorical columns
+    columns_to_clean = ['Profession', 'State', 'City']
+
+    # Removing those characters from the 'Profession', 'City', and 'State' column
+    for col in columns_to_clean:
+        data[col] = data[col].str.replace(r'\[\d+\]', '', regex=True)
+        data[col] = data[col].str.replace('_', ' ')
+        data[col] = data[col].str.replace(',', ' ')
+
+    # Rename the format of the values in those columns to title
+    for col in columns_to_clean:
+        data[col] = data[col].str.lower()
+
+    return data
