@@ -64,6 +64,9 @@ def initial_data_transform(data):
     for col in columns_to_clean:
         data[col] = data[col].str.lower()
 
+    # Replace Delhi_city city to New_Delhi
+    data['City'] = data['City'].replace('delhi city', 'new delhi')
+
     return data
 
 ## Impute missing values function
