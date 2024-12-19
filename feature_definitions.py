@@ -61,7 +61,7 @@ def get_feature_definitions():
             "specific_type": "Discrete"
         },
         "Risk_Flag": {
-            "description": "Loan default status",
+            "description": "Loan default status (0: Not Defaulted, 1: Defaulted)",
             "data_type": "Categorical",
             "specific_type": "Nominal"
         }
