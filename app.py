@@ -4,11 +4,10 @@ import pandas as pd
 import joblib
 import warnings
 warnings.filterwarnings('ignore')
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 # Import all preprocessing functions
-from preprocessing import check_data_information
-from preprocessing import initial_data_transform
+from preprocessing import (check_data_information, initial_data_transform, handle_missing_values, 
+                           filter_outliers, feature_engineering, feature_encoding, feature_scaling)
 from feature_definitions import get_feature_definitions
 
 #  Page Config
@@ -17,14 +16,15 @@ st.title("Loan Prediction Analysis")
 
 # Add information about the app
 with st.expander("**Read Instructions First: About This App**"):
-    st.write("""
+    st.markdown("""
     ## Loan Default Prediction Application
 
     ### 📌 Purpose
     - This app uses machine learning to predict the creditworthiness of loan applicants.
     - The goal is to help financial institutions make more accurate lending decisions by identifying potential loan defaults.
-
+    
     ### 🎯 Key Business Metrics
+    Here are two critical metrics that could be improved through accurate loan prediction:
 
     #### Primary Metric: Default Rate (%)
     - Measures the percentage of customers who fail to repay their loans
@@ -42,10 +42,10 @@ with st.expander("**Read Instructions First: About This App**"):
 
     #### Data Input Options:
     - Upload Your Own Dataset
-        - Ensure your dataset matches the required structure for loan prediction
-        - Recommended columns include: income, credit score, loan amount, employment status, etc.
+        - Ensure your dataset matches the required structure for loan prediction (check the raw data preview)
+        - Recommended columns that you need to ensure exist include: income, assets, profession, age, etc
     - Use Source Dataset
-        - Option to load a pre-existing loan application dataset
+        - Option to load a pre-existing loan application dataset that is used for model training
         - Provides a ready-to-use reference dataset for analysis
 
     #### Preprocessing Steps:
@@ -65,24 +65,24 @@ with st.expander("**Read Instructions First: About This App**"):
         - Identify and retain most relevant predictors of loan default
     7. Data Scaling
         - Normalize features to ensure balanced model training
-    8. Data Resampling
-        - Apply resampling techniques like Undersampling or Oversampling
+    All these steps are designed to optimize the model's predictive performance and ensure accurate loan default predictions.
 
-    ### 🤖 Prediction Capabilities
-    - Train multiple machine learning models for loan default prediction
-    - Visualize model performance and feature importance
-    - Generate detailed insights into credit risk factors
+    ### 🤖 Model Capabilities Information (Additional Info For Developers)
+    - This app uses a tuned K-Nearest Neighbors (KNN) model to predict loan default probability
+    - The model have recall score of 97.97 ± 0.06 (training) and 85.88 ± 0.23 (testing)
+    - The model is trained on a dataset of 32k loan applications
+    - More info on the model training process can be found in the project repository
 
-    ### 🔮 New Application Prediction
+    ### 🔮 **New Application Prediction**
     - Input new loan applicant details
     - Receive instant prediction of default probability
     - Get comprehensive breakdown of risk factors
 
-    ### ⚠️ Important Notes
+    ### ⚠️ <span style="color:red;"> Important Notes </span>
     - Model predictions are probabilistic and should be used as a decision support tool
-    - Final lending decisions should combine model insights with human expertise
-    - Continuous monitoring and updating of the model is recommended to maintain accuracy
-    """)
+    - **Final lending decisions should combine model insights with human expertise**
+    - Continuous monitoring and updating of the model is recommended to maintain performance
+    """, unsafe_allow_html=True)
 
 # Load pre-trained model
 @st.cache_resource
@@ -224,80 +224,23 @@ if submit_prediction_button:
     ori_df_preprocessed = pd.read_csv(url_ori_processed)
     ori_df_preprocessed = ori_df_preprocessed.loc[:, ori_df_preprocessed.columns != target_col]
 
-    # Show input data
-    st.subheader("Original Preprocessed Data")
-    st.write(ori_df_preprocessed.head())
-
     # Preprocessing steps
 
-    ## 1. Feature Engineering (Create only used feature in the model not all from the notebook)
+    ## 1. Handle Missing Values
     try:
-        # A. Generation
-        def assign_generation(age):
-            if age <= 27:
-                return 'Generation Z'
-            elif age <= 43:
-                return 'Generation Millenials'
-            elif age < 59:
-                return 'Generation X'
-            elif age < 69:
-                return 'Boomers II'
-            elif age <= 78:
-                return 'Boomers I'
-            else:
-                return 'Other'
+        input_df = handle_missing_values(input_df, columns=None, strategy='fill', imputation_method='median')
+    except Exception as e:
+        st.error(f"Error in handling missing values: {str(e)}")
 
-        input_df['Generation'] = input_df['Age'].apply(assign_generation)
+    ## 2. Handle Outliers
+    try:
+        input_df = filter_outliers(input_df, col_series=None, method='iqr')
+    except Exception as e:
+        st.error(f"Error in handling outliers: {str(e)}")
 
-        # Ratio Experience by Age
-        input_df['Experience_Age_Ratio'] = input_df['Experience'] / input_df['Age']
-
-        # B. Profession grouping
-        profession_groups = {
-        'engineering': ['engineer', 'mechanical engineer', 'civil engineer', 'industrial engineer', 'design engineer', 'chemical engineer', 'biomedical engineer', 'computer hardware engineer', 'petroleum engineer', 'surveyor', 'drafter'],
-        'technology': ['software developer', 'computer operator', 'technology specialist', 'web designer', 'technician'],
-        'healthcare': ['physician', 'dentist', 'surgeon', 'psychologist'],
-        'finance': ['economist', 'financial analyst', 'chartered accountant'],
-        'design': ['architect', 'designer', 'graphic designer', 'fashion designer', 'artist'],
-        'aviation': ['flight attendant', 'air traffic controller', 'aviator'],
-        'government public service': ['civil servant', 'politician', 'police officer', 'magistrate', 'army officer', 'firefighter', 'lawyer', 'official', 'librarian'],
-        'business management' : ['hotel manager', 'consultant', 'secretary'],
-        'science research' : ['scientist', 'microbiologist', 'geologist', 'statistician', 'analyst'],
-        'miscellaneous': ['comedian', 'chef', 'technical writer']}
-
-        input_df['Profession_Group'] = input_df['Profession'].map({prof: group for group, prof_list in profession_groups.items() for prof in prof_list})
-
-        # C. State grouping
-        def state_group(state) :
-            if state in ['uttar pradesh', 'haryana', 'jammu and kashmir', 'punjab', 'uttarakhand', 'chandigarh', 'delhi', 'himachal pradesh'] :
-                return 'north_zone'
-            elif state in ['bihar', 'jharkhand', 'odisha', 'west bengal', 'assam', 'sikkim', 'tripura', 'mizoram', 'manipur'] :
-                return 'east_zone'
-            elif state in ['andhra pradesh', 'tamil nadu', 'karnataka', 'telangana', 'kerala', 'puducherry'] :
-                return 'south_zone'
-            else :
-                return 'west_zone'
-
-        input_df['State_Group'] = input_df['State'].apply(state_group)
-
-        # D. City grouping
-        def city_group(city):
-            if city in ['new delhi', 'mumbai', 'kolkata', 'chennai', 'bangalore']:
-                return 'metro'
-            elif city in ['ahmedabad', 'hyderabad', 'pune', 'surat', 'jaipur', 'lucknow', 'kanpur', 'nagpur', 'visakhapatnam', 'indore', 'thane',
-                        'bhopal', 'pimpri-chinchwad', 'patna', 'vadodara', 'ghaziabad', 'ludhiana', 'agra', 'nashik', 'faridabad', 'meerut', 'rajkot',
-                        'varanasi', 'srinagar', 'amritsar', 'allahabad', 'jabalpur', 'gwalior', 'vijayawada', 'jodhpur', 'raipur', 'kota', 'guwahati', 'chandigarh city']:
-                return 'urban'
-            elif city in ['navi mumbai', 'kalyan-dombivli', 'vasai-virar', 'mira-bhayandar', 'thiruvananthapuram', 'bhiwandi', 'noida', 'bhopal', 'howrah', 'saharanpur',
-                        'berhampur', 'suryapet', 'muzaffarpur', 'nadiad', 'siliguri', 'bhavnagar', 'kurnool', 'tenali', 'satna', 'nandyal', 'etawah', 'morena', 'ballia',
-                        'machilipatnam', 'mau', 'machilipatnam', 'bhagalpur', 'siwan', 'meerut', 'dibrugarh', 'gaya', 'darbhanga', 'hajipur', 'mirzapur', 'akola', 'satna',
-                        'motihari', 'jalna', 'ramgarh', 'ozhukarai', 'saharsa', 'munger', 'farrukhabad', 'nangloi jat', 'thoothukudi', 'nagercoil', 'rourkela', 'jhansi', 'sultan pur majra']:
-                return 'suburban'
-            else:
-                return 'rural'
-
-        input_df['City_Group'] = input_df['City'].apply(city_group)
-
+    ## 3. Feature Engineering
+    try:
+        input_df = feature_engineering(input_df)
     except Exception as e:
         st.error(f"Error in feature engineering: {str(e)}")
 
@@ -305,55 +248,10 @@ if submit_prediction_button:
     st.subheader("After Feature Engineering")
     st.write(input_df) 
 
-    ## 2. Feature encoding
+    ## 4. Feature encoding
     try:
-        # A. Handle ordinal encoding for Car_Ownership and Generation (unchanged)
-        input_df['Car_Ownership'] = input_df['Car_Ownership'].map({'no': 0, 'yes': 1})
-
-        input_df['Generation'] = input_df['Generation'].map({'Generation Z': 0,
-                                                            'Generation Millenials': 1,
-                                                            'Generation X' : 2,
-                                                            'Boomers II' : 3,
-                                                            'Boomers I' : 4,
-                                                            'Other' : 5})
-        
-        # B. Handle one-hot encoding for Profession using original data categories
-        unique_professions = ori_df_preprocessed.filter(like='Prof_').columns
-        prof_encoded = pd.DataFrame(0, index=input_df.index, columns=unique_professions)
-        if f"Prof_{input_df['Profession_Group'].iloc[0]}" in unique_professions:
-            prof_encoded[f"Prof_{input_df['Profession_Group'].iloc[0]}"] = 1
-        input_df = input_df.drop(columns=['Profession_Group'], errors='ignore')
-        input_df = pd.concat([input_df, prof_encoded], axis=1)
-
-        # C. Handle one-hot encoding for State using original data categories
-        unique_states = ori_df_preprocessed.filter(like='State_').columns
-        state_encoded = pd.DataFrame(0, index=input_df.index, columns=unique_states)
-        if f"State_{input_df['State_Group'].iloc[0]}" in unique_states:
-            state_encoded[f"State_{input_df['State_Group'].iloc[0]}"] = 1
-        input_df = input_df.drop(columns=['State_Group'], errors='ignore')
-        input_df = pd.concat([input_df, state_encoded], axis=1)
-
-        # D. Handle one-hot encoding for City using original data categories
-        unique_cities = ori_df_preprocessed.filter(like='City_').columns
-        city_encoded = pd.DataFrame(0, index=input_df.index, columns=unique_cities)
-        if f"City_{input_df['City_Group'].iloc[0]}" in unique_cities:
-            city_encoded[f"City_{input_df['City_Group'].iloc[0]}"] = 1
-        input_df = input_df.drop(columns=['City_Group'], errors='ignore')
-        input_df = pd.concat([input_df, city_encoded], axis=1)
-
-        # Ensure all expected columns are present before moving to scaling
-        expected_columns = ori_df_preprocessed.columns.tolist()
-        for col in expected_columns:
-            if col not in input_df.columns:
-                input_df[col] = 0
-
-        for col in input_df.columns:
-            if col not in expected_columns:
-                input_df.drop(columns=col, inplace=True)
-
-        # Reorder and match columns to match training data
-        input_df = input_df[expected_columns]
-    
+        input_df, expected_columns = feature_encoding(input_df, original_data=ori_df_preprocessed)
+        st.session_state.expected_columns = expected_columns
     except Exception as e:
         st.error(f"Error in feature encoding: {str(e)}")
         st.write("Debug information:")
@@ -363,41 +261,10 @@ if submit_prediction_button:
     # Check data after encoding
     st.subheader("After Feature Encoding and Drop Columns")
     st.write(input_df)
-
-    ## 3. Feature Scaling
-    standard_scaler = StandardScaler()
-    minmax_scaler = MinMaxScaler()
-
+    
+    ## 5. Feature Scaling
     try:
-        # Define feature groups for targeted scaling
-        # Each feature group requires a specific scaling approach
-        log_transform_features = ['Experience_Age_Ratio']  # Features with high skewness
-        count_uniform_features = ['Income']  # Discrete features representing quantities
-
-        scalers = {}  # Dictionary to store fitted scalers and feature info
-
-        # TRAINING DATA SCALING
-        # Step 1: Scale count/uniform features using MinMaxScaler
-        ori_df_preprocessed[count_uniform_features] = minmax_scaler.fit_transform(ori_df_preprocessed[count_uniform_features])
-        scalers['count_uniform'] = minmax_scaler
-
-        # Step 2: Scale skewed features using log transformation and standardization
-
-        ori_df_preprocessed[log_transform_features] = np.log1p(ori_df_preprocessed[log_transform_features])
-        ori_df_preprocessed[log_transform_features] = standard_scaler.fit_transform(ori_df_preprocessed[log_transform_features])
-        scalers['log_transform'] = standard_scaler
-
-        # INFERENCE DATA SCALING
-        # Apply the same transformations used in training data
-        # Use .transform() instead of .fit_transform() to maintain training distribution
-
-        # Scale count/uniform features
-        input_df[count_uniform_features] = scalers['count_uniform'].transform(input_df[count_uniform_features])
-
-        # Scale skewed features
-        input_df[log_transform_features] = np.log1p(input_df[log_transform_features])
-        input_df[log_transform_features] = scalers['log_transform'].transform(input_df[log_transform_features])
-
+        input_df = feature_scaling(data=input_df, original_data=ori_df_preprocessed)
     except Exception as e:
         st.error(f"Error in feature scaling: {str(e)}")
 
