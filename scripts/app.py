@@ -109,7 +109,7 @@ def load_model():
 model = load_model()
 
 # Load original CSV data form author github
-url_ori = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/Training%20Data.csv"
+url_ori = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/data/Training%20Data.csv"
 ori_df = pd.read_csv(url_ori)
 
 # Initial transform for original dataframe
@@ -161,7 +161,7 @@ target_col = "Risk_Flag"
 gather_data = False
 
 # Import the preprocessed original data (this will be used to match the columns used in the model)
-url_ori_processed = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/df_model_rewrite.csv"
+url_ori_processed = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/data/df_model_rewrite.csv"
 ori_df_preprocessed = pd.read_csv(url_ori_processed)
 ori_df_preprocessed = ori_df_preprocessed.loc[:, ori_df_preprocessed.columns != target_col]
 
@@ -309,7 +309,7 @@ elif input_type.lower() == 'batch data':
         # First button with a unique key
         if st.button("Use Example Data", key="example_data_button"):
             # Load example CSV data from author's GitHub
-            url_example_batch_df = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/batch_example.csv"
+            url_example_batch_df = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/data/batch_example.csv"
             batch_input_df = pd.read_csv(url_example_batch_df)
             batch_input_df = initial_data_transform(batch_input_df)
             gather_data = True

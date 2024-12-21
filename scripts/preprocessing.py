@@ -5,7 +5,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 import scipy.stats as stats
 
 # Import the preprocessed original data
-url_ori_processed = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/df_model_rewrite.csv"
+url_ori_processed = "https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/main/data/df_model_rewrite.csv"
 ori_df_preprocessed = pd.read_csv(url_ori_processed)
 ori_df_preprocessed = ori_df_preprocessed.loc[:, ori_df_preprocessed.columns != "Risk_Flag"]
 
