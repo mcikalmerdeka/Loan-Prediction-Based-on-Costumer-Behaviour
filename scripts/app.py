@@ -260,7 +260,7 @@ if input_type.lower() == 'individual customer':
                 "Current_House_Years": 12,
             }
             st.table(pd.DataFrame([example_data_1]))
-            st.write("Which will result in a prediction of <span style='color:red;'>**Not Default**</span>", unsafe_allow_html=True)
+            st.write("Which will result in a prediction of <span style='color:green;'>**Not Default**</span>", unsafe_allow_html=True)
             
             # Example data of a customer who is predicted as Default
             example_data_2 = {
@@ -278,7 +278,7 @@ if input_type.lower() == 'individual customer':
                 "Current_House_Years": 10,
             }
             st.table(pd.DataFrame([example_data_2]))
-            st.write("Which will result in a prediction of <span style='color:green;'>**Default**</span>", unsafe_allow_html=True)
+            st.write("Which will result in a prediction of <span style='color:red;'>**Default**</span>", unsafe_allow_html=True)
 
             st.write("Note: You can see the behaviour of the model and how it prefer certain values to be predicted as default or not default")
 
