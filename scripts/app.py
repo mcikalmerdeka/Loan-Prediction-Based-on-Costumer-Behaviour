@@ -23,8 +23,9 @@ st.title("Loan Prediction Analysis")
 # Author Information
 st.markdown("""
 #### Author
-Developed by : Muhammad Cikal Merdeka | Data Analyst/Data Scientist
+Developed by : Muhammad Cikal Merdeka | Data Analyst/Data Scientist | Data Department
 
+- [Email](mailto:mcikalmerdeka@gmail.com)
 - [GitHub Profile](https://github.com/mcikalmerdeka)  
 - [LinkedIn Profile](https://www.linkedin.com/in/mcikalmerdeka)
 """)
