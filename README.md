@@ -1,5 +1,7 @@
 ﻿# Loan Prediction Based on Customer Behavior
 
+![Project Header](https://raw.githubusercontent.com/mcikalmerdeka/Loan-Prediction-Based-on-Costumer-Behaviour/refs/heads/main/Assets/Project%20Header.jpg)
+
 **This is the repository for the final project of the Rakamin Data Science Bootcamp Batch 39 that I attended. We are required to go through the end-to-end process of a data science project analyzing factors influencing the default (failure to pay) of a lending company. The original progress and result of each stage can be seen in the "Original Indonesian Version" folder, while what is displayed here is the result of the conversion from Indonesian to English, accompanied by further improvements made after the completion of the final project.**
 
 # Members of Group 3 (**Dackers**)
